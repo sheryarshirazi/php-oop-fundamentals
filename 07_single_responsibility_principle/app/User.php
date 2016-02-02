@@ -1,9 +1,9 @@
 <?php
 class User {
-    
+
     private $email;
     private $password;
-    
+
     /**
      * Log in a user
      * @return string
@@ -11,7 +11,7 @@ class User {
     public function login(){
         return 'Logging in with a vengeange ...';
     }
-    
+
     /**
      * Log in a user
      * @return string
@@ -19,7 +19,7 @@ class User {
      public function logout(){
         return 'Logging out ...';
     }
-    
+
     /**
      * Set the user's password
      * @param string $string
@@ -27,10 +27,11 @@ class User {
      */
     public function setPassword ($string)
     {
+        // return $this provide method chainging
         $this->password = $string;
         return $this;
     }
-    
+
     /**
      * Get the user's password
      * @return string
@@ -39,7 +40,7 @@ class User {
     {
         return $this->password;
     }
-    
+
     /**
      * Set the user's email
      * @param string $string
@@ -47,10 +48,11 @@ class User {
      */
     public function setEmail ($string)
     {
+        // return $this provide method chainging
         $this->email = $string;
         return $this;
     }
-    
+
     /**
      * Get the user's email
      * @return string

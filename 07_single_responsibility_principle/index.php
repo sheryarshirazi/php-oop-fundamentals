@@ -12,17 +12,18 @@ $data = array('email' => 'joost@tutsplus.com', 'password' => '12346789');
 // Run validation
 $validator = new Validator();
 if ($validator->validate($data, $rules) == true) {
-    
+
     // Validation passed. Set user values.
     $joost = new User();
+    // method chaining is used
     $joost->setEmail($data['email'])
           ->setPassword(getHash($data['password']));
-    
+
     // Dump user
     var_dump($joost);
 }
 else {
-    
+
     // Validation failed. Dump validation errors.
     var_dump($validator->getErrors());
 }

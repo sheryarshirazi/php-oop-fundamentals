@@ -7,9 +7,9 @@ class Validator
      * @var array
      */
     private $errors = array();
-    
+
     /**
-     * Validate data against a set of rules and set errors in the $this->errors 
+     * Validate data against a set of rules and set errors in the $this->errors
      * array
      * @param array $data
      * @param array $rules
@@ -18,22 +18,33 @@ class Validator
     public function validate (Array $data, Array $rules)
     {
         $valid = true;
-        
+        /**
+         * item can be email, password , username etc.
+         * @var associative array
+         *
+         * $ruleset build like required|email|min:8
+         * @var string
+         */
         foreach ($rules as $item => $ruleset) {
             // required|email|min:8
             $ruleset = explode('|', $ruleset);
-            
+
             foreach ($ruleset as $rule) {
-                
+
+                // if rule contain : then $pos variable is set
                 $pos = strpos($rule, ':');
+
+                // if rule has parameter i.e 8
                 if ($pos !== false) {
+                    // parameter is after the colon ($pos now string position of :)
                     $parameter = substr($rule, $pos + 1);
+                    // vise versa rule is before the :
                     $rule = substr($rule, 0, $pos);
                 }
                 else {
                     $parameter = '';
                 }
-                
+
                 // validateEmail($item, $value, $param)
                 $methodName = 'validate' . ucfirst($rule);
                 $value = isset($data[$item]) ? $data[$item] : NULL;
@@ -42,11 +53,11 @@ class Validator
                 }
             }
         }
-        
-        
+
+
         return $valid;
     }
-    
+
     /**
      * Get validation errors
      * @return array:
@@ -55,7 +66,7 @@ class Validator
     {
         return $this->errors;
     }
-    
+
     /**
      * Validate the $value of $item to see if it is present and not empty
      * @param string $item
@@ -69,10 +80,10 @@ class Validator
             $this->errors[$item][] = 'The ' . $item . ' field is required';
             return false;
         }
-        
+
         return true;
     }
-    
+
     /**
      * Validate the $value of $item to see if it is a valid email address
      * @param string $item
@@ -86,12 +97,12 @@ class Validator
             $this->errors[$item][] = 'The ' . $item . ' field should be a valid email addres';
             return false;
         }
-        
+
         return true;
     }
-    
+
     /**
-     * Validate the $value of $item to see if it is fo at least $param 
+     * Validate the $value of $item to see if it is fo at least $param
      * characters long
      * @param string $item
      * @param string $value
@@ -104,7 +115,7 @@ class Validator
             $this->errors[$item][] = 'The ' . $item . ' field should have a minimum length of ' . $parameter;
             return false;
         }
-        
+
         return true;
     }
 }
